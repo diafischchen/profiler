@@ -12,8 +12,13 @@ class ProfilerElementCollection {
         
     }
 
-    public function push(ProfilerElement $element) {
-        array_push($this->array, $element);
+    public function push(string $name, ProfilerElement $element): ProfilerElementCollection {
+        $this->array[$name] = $element;
+        return $this;
+    }
+
+    public function get() {
+        
     }
 
 }
