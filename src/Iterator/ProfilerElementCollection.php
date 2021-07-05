@@ -12,13 +12,21 @@ class ProfilerElementCollection {
         
     }
 
-    public function push(string $name, ProfilerElement $element): ProfilerElementCollection {
-        $this->array[$name] = $element;
+    public function push(ProfilerElement $element): ProfilerElementCollection {
+        $this->array[] = $element;
         return $this;
     }
 
-    public function get() {
-        
+    public function get(int $pos): ProfilerElement {
+        return $this->array[$pos];
+    }
+
+    public function valid(int $pos): bool {
+        return isset($this->array[$pos]);
+    }
+
+    public function count(): int {
+        return count($this->array);
     }
 
 }
