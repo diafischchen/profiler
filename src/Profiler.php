@@ -13,12 +13,23 @@ class Profiler extends Config {
     private ProfilerElementCollection $collection;
     private ProfilerTmpElementCollection $tmp;
 
+    /**
+     * Neue Profiler Instanz
+     * 
+     * Startet die Aufzeichnung der Server Request Time
+     */
     public function __construct() {
         $this->collection = new ProfilerElementCollection;
         $this->tmp = new ProfilerTmpElementCollection;
         $this->rec(self::SERVER_REQUEST_TIME);
     }
 
+    /**
+     * Laufzeitaufnahme für dem gewählten Namen starten
+     *
+     * @param string $name
+     * @return Profiler
+     */
     public function rec(string $name): Profiler {
         if ($name === self::SERVER_REQUEST_TIME) {
             $el = new ProfilerTmpElement('SERVER_REQUEST_TIME', $_SERVER['REQUEST_TIME_FLOAT']);
@@ -31,6 +42,14 @@ class Profiler extends Config {
         return $this;
     }
 
+    /**
+     * Laufzeitaufnahme für dem gewählten Namen stoppen
+     * 
+     * Profiler::SERVER_REQUEST_TIME als $name Parameter stoppt die Laufzeitaufnahme für die Server Request Time
+     *
+     * @param string $name
+     * @return void
+     */
     public function stop(string $name): Profiler | false {
         $tmp = $this->tmp->get($name);
 
@@ -43,6 +62,12 @@ class Profiler extends Config {
         }
     }
 
+    /**
+     * Erstellt einen Dump der aufgenommenen Laufzeiten
+     *
+     * @param boolean $reverse
+     * @return ProfilerElementIterator
+     */
     public function dump(bool $reverse = false): ProfilerElementIterator {
         return new ProfilerElementIterator($this->collection, $reverse);
     }

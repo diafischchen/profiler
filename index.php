@@ -1,5 +1,7 @@
 <?php
 
+/* CLIENT CODE */
+
 use Profiler\Profiler;
 
 require 'autoload.php';
