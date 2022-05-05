@@ -4,6 +4,7 @@ namespace Profiler\Iterator;
 
 use Iterator;
 use Profiler\Iterator\ProfilerElementCollection;
+use Profiler\ProfilerElement;
 
 class ProfilerElementIterator implements Iterator {
 
@@ -18,13 +19,13 @@ class ProfilerElementIterator implements Iterator {
 
     }
 
-    public function current() {
+    public function current(): ProfilerElement {
 
         return $this->collection->get($this->position);
 
     }
 
-    public function next() {
+    public function next(): void {
 
         if ($this->reverse) {
             $this->position--;
@@ -34,19 +35,19 @@ class ProfilerElementIterator implements Iterator {
 
     }
 
-    public function key() {
+    public function key(): int {
 
         return $this->position;
 
     }
 
-    public function valid() {
+    public function valid(): bool {
 
         return $this->collection->valid($this->position);
 
     }
 
-    public function rewind() {
+    public function rewind(): void {
 
         if ($this->reverse) {
             $this->position = $this->collection->count() - 1;

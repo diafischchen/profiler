@@ -72,7 +72,7 @@ class Profiler extends Config {
         return new ProfilerElementIterator($this->collection, $reverse);
     }
 
-    private function addElement(ProfilerTmpElement $tmp) {
+    private function addElement(ProfilerTmpElement $tmp): void {
         $el = new ProfilerElement($tmp);
         $this->collection->push($el);
     }
